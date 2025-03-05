@@ -1,14 +1,22 @@
+
+
+
 html {
     box-sizing: border-box;
     -ms-overflow-style: scrollbar
 }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+
 
 *, ::after, ::before {
     box-sizing: inherit
 }
 
 body {
-    font-family: Helvetica, Verdana, Arial, sans-serif;
+    font-family: Cairo, Verdana, Arial, sans-serif;
     font-size: 19px;
     line-height: 1.8;
     color: #000;
