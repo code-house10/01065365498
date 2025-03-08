@@ -429,41 +429,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 </footer>
 
-<script type="text/javascript">
-(function() {
-   
-function clickIE() {
-    if (document.all) {
-    return false;
-    }
-} 
-function clickNS(e) { 
-if (document.layers||(document.getElementById&&!document.all)) { 
-    if (e.which==2||e.which==3) { 
-        return false;
-    } 
-}
- } 
- if (document.layers) { 
-    document.captureEvents(Event.MOUSEDOWN); 
-    document.onmousedown=clickNS;
-} else { 
-    document.onmouseup=clickNS;
-    document.oncontextmenu=clickIE; 
-} 
-    document.oncontextmenu=new Function("return false")
-
-function disableselect(e) { 
-    return false 
-} 
-function reEnable() {
-     return true 
- } 
-document.onselectstart = new Function ("return false") 
-
-})();
-</script>
 <script type="text/javascript" src="wp-content/themes/memotheme/assets/js/memomain.js" id="memo-main-js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const faqItems = document.querySelectorAll(".memo-post-faq-box");
+
+    faqItems.forEach(item => {
+        item.querySelector(".memo-faq-head").addEventListener("click", function() {
+            // إغلاق جميع الإجابات المفتوحة قبل فتح الجديد
+            faqItems.forEach(faq => {
+                if (faq !== item) {
+                    faq.classList.remove("active");
+                    faq.querySelector(".memo-faq-box-answer").style.maxHeight = null;
+                }
+            });
+
+            // تبديل الفئة وإظهار الإجابة
+            item.classList.toggle("active");
+            let answer = item.querySelector(".memo-faq-box-answer");
+            if (item.classList.contains("active")) {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            } else {
+                answer.style.maxHeight = null;
+            }
+        });
+    });
+});
+</script>
+
+<style>
+/* إخفاء الإجابات في البداية */
+.memo-faq-box-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* تغيير أيقونة السهم عند التفعيل */
+.memo-post-faq-box.active .faq-icon {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+}
+</style>
+
+
 </body>
 
 </html>
